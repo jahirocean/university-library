@@ -1,10 +1,7 @@
 "use client";
-
-import React from "react";
 import AuthForm from "@/components/AuthForm";
 import { signUpSchema } from "@/lib/validations";
-import { signInWithCredentials } from "@/lib/actions/auth";
-import { University } from "lucide-react";
+import { signUp } from "@/lib/actions/auth";
 
 const Page = () => (
   <AuthForm
@@ -14,10 +11,10 @@ const Page = () => (
       email: "",
       password: "",
       fullName: "",
-      universityId:0,
-      universityCard: '',
+      universityId: 0,
+      universityCard: "",
     }}
-    onSubmit={signInWithCredentials}
+    onSubmit={signUp}
   />
 );
 

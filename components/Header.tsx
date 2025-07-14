@@ -1,16 +1,9 @@
-"use client";
-
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "./ui/button";
-import { cn } from "@/lib/utils";
 import { signOut } from "@/auth";
-import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
-  const pathname = usePathname();
-
   return (
     <header className="my-10 flex justify-between gap-5">
       <Link href="/">
@@ -21,7 +14,7 @@ const Header = () => {
         <li>
           <form
             action={async () => {
-              
+              "use server";
 
               await signOut();
             }}

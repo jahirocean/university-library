@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
 import {
   DefaultValues,
   FieldValues,
@@ -10,23 +9,21 @@ import {
   useForm,
   UseFormReturn,
 } from "react-hook-form";
-import { object, z, ZodType } from "zod";
-import Link from "next/link";
+import { ZodType } from "zod";
 
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { FIELD_NAMES } from "@/constants";
-import { FIELD_TYPES } from "@/constants";
-import ImageUpload from "./ImageUpload";
+import Link from "next/link";
+import { FIELD_NAMES, FIELD_TYPES } from "@/constants";
+import FileUpload from "@/components/FileUpload";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -43,7 +40,7 @@ const AuthForm = <T extends FieldValues>({
   defaultValues,
   onSubmit,
 }: Props<T>) => {
-  const router = useRouter;
+  const router = useRouter();
 
   const isSignIn = type === "SIGN_IN";
 
@@ -84,7 +81,10 @@ const AuthForm = <T extends FieldValues>({
           : "Please complete all fields and upload a valid university ID to gain access to the library"}
       </p>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="w-full space-y-6"
+        >
           {Object.keys(defaultValues).map((field) => (
             <FormField
               key={field}
@@ -97,7 +97,14 @@ const AuthForm = <T extends FieldValues>({
                   </FormLabel>
                   <FormControl>
                     {field.name === "universityCard" ? (
-                      <ImageUpload onFileChange={field.onChange} />
+                      <FileUpload
+                        type="image"
+                        accept="image/*"
+                        placeholder="Upload your ID"
+                        folder="ids"
+                        variant="dark"
+                        onFileChange={field.onChange}
+                      />
                     ) : (
                       <Input
                         required
@@ -109,7 +116,6 @@ const AuthForm = <T extends FieldValues>({
                       />
                     )}
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
@@ -121,6 +127,7 @@ const AuthForm = <T extends FieldValues>({
           </Button>
         </form>
       </Form>
+
       <p className="text-center text-base font-medium">
         {isSignIn ? "New to BookWise? " : "Already have an account? "}
 
@@ -134,5 +141,4 @@ const AuthForm = <T extends FieldValues>({
     </div>
   );
 };
-
 export default AuthForm;

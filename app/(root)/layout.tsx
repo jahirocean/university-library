@@ -7,13 +7,11 @@ import { db } from "@/database/drizzle";
 import { users } from "@/database/schema";
 import { eq } from "drizzle-orm";
 
-
-const layout = async ({children}:{children: ReactNode}) => {
+const Layout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
-  
-    if(session) redirect("/sign-in");
-    
-    
+
+  if (!session) redirect("/sign-in");
+
   after(async () => {
     if (!session?.user?.id) return;
 
@@ -33,18 +31,14 @@ const layout = async ({children}:{children: ReactNode}) => {
   });
 
   return (
-    <main className='root-container'>
-        <div className='mx-auto max-w-7xl'>
-            <Header session={session}/>
-            <div className='mt-20 pb-20'>
-                {children}
+    <main className="root-container">
+      <div className="mx-auto max-w-7xl">
+        <Header session={session} />
 
-            </div>
-
-        </div>
-
+        <div className="mt-20 pb-20">{children}</div>
+      </div>
     </main>
-  )
-}
+  );
+};
 
-export default layout
+export default Layout;
