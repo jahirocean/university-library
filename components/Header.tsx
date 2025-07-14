@@ -19,16 +19,16 @@ const Header = () => {
 
       <ul className="flex flex-row items-center gap-8">
         <li>
-          {/* <form
+          <form
             action={async () => {
-              "use server";
+              
 
               await signOut();
             }}
             className="mb-10"
           >
             <Button>Logout</Button>
-          </form> */}
+          </form>
         </li>
       </ul>
     </header>

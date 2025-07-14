@@ -8,7 +8,7 @@ import { signIn } from "@/auth";
 import { headers } from "next/headers";
 import ratelimit from "@/lib/ratelimit";
 import { redirect } from "next/navigation";
-//import { workflowClient } from "@/lib/workflow";
+import { workflowClient } from "@/lib/workflow";
 import config from "@/lib/config";
 
 export const signInWithCredentials = async (
@@ -68,13 +68,13 @@ const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
       universityCard,
     });
 
-    /* await workflowClient.trigger({
+    await workflowClient.trigger({
       url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
       body: {
         email,
         fullName,
       },
-    }); */
+    }); 
 
     await signInWithCredentials({ email, password });
 
